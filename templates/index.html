@@ -1,0 +1,101 @@
+{% extends 'layout.html' %} {% block body%}
+<div class="row">
+    <div class="col-md-5">
+        {% with messages = get_flashed_messages() %} {% if messages%} {% for message in messages %}
+
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ message }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+      <span aria-hidden="true">&times;</span>
+    </button>
+        </div>
+        {% endfor %} {% endif %} {% endwith %}
+        <div class="class-container">
+            <div class="card card-body">
+                <form action="/activos" method="POST">
+                    <div class="div-formgroup">
+                    <label for="nombre" id="nombre">Nombre</label>
+                    <input type="text" name="nombre" placeholder="Nombre activo" class="form-control">
+                    </div>
+                    <div class="div-formgroup">
+                      <label for="cantidad" id="cantidad">Cantidad</label>
+                      <input type="number" name="cantidad" placeholder="cantidad" class="form-control">
+                      </div>
+                       <div class="div-fromgroup">
+                         <label for="tipo" id="tipo">Tipo Activo:</label>
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipo" id="tipo" value="Fijo">
+                        <label class="form-check-label" for="tipo">Fijo</label>
+                      </div>
+                    
+                      <div class="form-check form-check-inline">
+                        <input class="form-check-input" type="radio" name="tipo" id="tipo" value="Circulante">
+                        <label  class="form-check-label" for="tipo">Circulante</label>
+                      </div>
+                     </div>
+                    <div class="div-formgroup">
+                      <label for="fecha_adquisicion" id="fecha_adquisicion">Fecha de adquisicion</label>
+                      <input type="date" name="fecha_adquisicion"  class="form-control">
+                    </div>
+                     <div class="div-formgroup">
+                      <label for="valor_compra" id="valor_compra">Valor compra</label>
+                      <input type="number"  name="valor_compra" placeholder="valor compra" class="form-control">
+                      </div>
+                      <div class="div-formgroup">
+                        <label for="depreciacion_anual" id="depreciacion_anual">Depreciacion anual</label>
+                        <input type="number" step="0.1"  name="depreciacion_anual" placeholder="Depreciacion %" class="form-control">
+                        </div>
+                       <div class="div-formgroup">
+                         <label for="precio_final" id="precio_final">Precio final</label>
+                         <input type="number" name="precio_final"  class="form-control">
+                        </div>
+
+                    </div>
+                   
+        
+                   
+
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-primary btn-block"> Guardar </button>
+                    </div>
+
+                </form>
+            </div>
+        
+    </div>
+
+    <div class="col-md-5">
+        <table class="table table-striped table-bordered bg-white table-sm">
+            <thead>
+                <tr>
+                    <td>Nombre </td>
+                    <td>Cantidad </td>
+                    <td>Tipo </td>
+                    <td>Fecha adquisicion </td>
+                    <td>Valor compra </td>
+                    <td>Depreciacion anual </td>
+                    <td>Precio Final </td>
+                </tr>
+            </thead>
+            <tbody>
+                {% for activo in activos %}
+                <tr>
+                    <td> {{ activo.nombre}}</td>
+                    <td> {{ activo.cantidad }}</td>
+                    <td> {{ activo.tipo }}</td>
+                    <td> {{ activo.fecha_adquisicion}}</td>
+                    <td> {{ activo.valor_compra }}</td>
+                    <td> {{ activo.depreciacion_anual }}</td>
+                    <td> {{ activo.precio_final }}</td>
+                    <td>
+                       
+                        <a href="/delete/{{activo.id}}" class="btn btn-danger"> Delete</a>
+                    </td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+
+    </div>
+</div>
+{% endblock %}
